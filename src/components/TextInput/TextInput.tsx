@@ -7,8 +7,8 @@ function TextInput({
   value,
 }: TextInputProps) {
   return (
-    <input
-      type="text"
+    <textarea
+      rows={6}
       aria-label={placeholder || 'Text input'}
       placeholder={placeholder}
       {...(value === undefined ? { defaultValue: initialValue } : { value })}

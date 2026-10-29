@@ -3,6 +3,17 @@ import StatsDisplay from '../StatsDisplay/StatsDisplay'
 import TextInput from '../TextInput/TextInput'
 import type { CharacterCounterProps, TextStats } from '../../types'
 
+function countWords(text: string) {
+  let wordCount = 0
+  const wordPattern = /\S+/g
+
+  while (wordPattern.exec(text) !== null) {
+    wordCount += 1
+  }
+
+  return wordCount
+}
+
 function CharacterCounter({
   minWords,
   maxWords,
@@ -16,7 +27,7 @@ function CharacterCounter({
   })
 
   function handleTextChange(nextText: string) {
-    const wordCount = nextText.trim().split(/\s+/).filter(Boolean).length
+    const wordCount = countWords(nextText)
     setText(nextText)
     setStats({
       characterCount: nextText.length,
