@@ -4,7 +4,7 @@ import './App.css'
 function App() {
   return (
     <main>
-      <CharacterCounter />
+      <CharacterCounter maxWords={500} />
     </main>
   )
 }

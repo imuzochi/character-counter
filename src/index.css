@@ -51,11 +51,9 @@
 }
 
 #root {
-  width: 1126px;
+  width: 100%;
   max-width: 100%;
   margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -74,13 +72,9 @@ h2 {
 }
 
 h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  letter-spacing: -0.04em;
+  margin: 0 0 0.5rem;
 }
 h2 {
   font-size: 24px;
@@ -93,6 +87,10 @@ h2 {
 }
 p {
   margin: 0;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 code,

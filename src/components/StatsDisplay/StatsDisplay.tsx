@@ -2,18 +2,18 @@ import type { StatsDisplayProps } from '../../types'
 
 function StatsDisplay({ stats, showReadingTime = false }: StatsDisplayProps) {
   return (
-    <section aria-label="Text statistics">
+    <section className="text-stats" aria-label="Text statistics">
       <dl>
-        <div>
+        <div className="text-stats__item">
           <dt>Characters</dt>
           <dd>{stats.characterCount}</dd>
         </div>
-        <div>
+        <div className="text-stats__item">
           <dt>Words</dt>
           <dd>{stats.wordCount}</dd>
         </div>
         {showReadingTime && (
-          <div>
+          <div className="text-stats__item">
             <dt>Reading time</dt>
             <dd>
               {stats.readingTime} {stats.readingTime === 1 ? 'minute' : 'minutes'}

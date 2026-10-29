@@ -43,22 +43,56 @@ function CharacterCounter({
   } else if (maxWords !== undefined && stats.wordCount > maxWords) {
     const wordsOverLimit = stats.wordCount - maxWords
     wordCountMessage = `Remove ${wordsOverLimit} ${wordsOverLimit === 1 ? 'word' : 'words'}.`
+  } else if (minWords === undefined && maxWords !== undefined) {
+    wordCountMessage = 'Within the word limit.'
   } else if (minWords !== undefined || maxWords !== undefined) {
     wordCountMessage = 'Word count is within the specified range.'
   }
 
+  const wordGoal = maxWords ?? minWords
+  const progressValue =
+    wordGoal === undefined ? undefined : Math.min(stats.wordCount, wordGoal)
+  const isOverWordGoal = maxWords !== undefined && stats.wordCount > maxWords
+
   return (
     <section className="character-counter" aria-labelledby="character-counter-title">
       <h1 id="character-counter-title">Character Counter</h1>
+      <p className="character-counter__description">
+        Track your text length, word count, and estimated reading time.
+      </p>
       <TextInput
         onTextChange={handleTextChange}
         placeholder="Enter your text"
         value={text}
       />
       <StatsDisplay stats={stats} showReadingTime />
-      {wordCountMessage && <p aria-live="polite">{wordCountMessage}</p>}
+      {wordGoal !== undefined && progressValue !== undefined && wordGoal > 0 && (
+        <div
+          className={`word-goal${isOverWordGoal ? ' word-goal--over' : ''}`}
+        >
+          <div className="word-goal__label">
+            <span>Word goal</span>
+            <span>
+              {stats.wordCount} / {wordGoal} words
+            </span>
+          </div>
+          <progress
+            aria-label={`Word goal progress: ${stats.wordCount} of ${wordGoal} words`}
+            value={progressValue}
+            max={wordGoal}
+          />
+        </div>
+      )}
+      {wordCountMessage && (
+        <p
+          className={`word-count-message${isOverWordGoal ? ' word-count-message--over' : ''}`}
+          aria-live="polite"
+        >
+          {wordCountMessage}
+        </p>
+      )}
       {targetReadingTime !== undefined && (
-        <p>
+        <p className="reading-time-target">
           Target reading time: {targetReadingTime}{' '}
           {targetReadingTime === 1 ? 'minute' : 'minutes'}
         </p>
