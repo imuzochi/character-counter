@@ -4,13 +4,14 @@ function TextInput({
   onTextChange,
   placeholder,
   initialValue = '',
+  value,
 }: TextInputProps) {
   return (
     <input
       type="text"
       aria-label={placeholder || 'Text input'}
       placeholder={placeholder}
-      defaultValue={initialValue}
+      {...(value === undefined ? { defaultValue: initialValue } : { value })}
       onChange={(event) => onTextChange(event.target.value)}
     />
   )
